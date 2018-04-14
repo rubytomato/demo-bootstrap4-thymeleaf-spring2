@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="_header :: header(~{hello :: title})">
+    <title>thymeleaf simple demonstration</title>
+</head>
+<body class="bg-light">
+
+<th:block th:replace="_nav :: nav"/>
+
+<main role="main" class="container">
+
+    <div class="starter-template">
+        <h1>thymeleaf simple demonstration</h1>
+    </div>
+
+    <div>
+        <h2>text</h2>
+        <p th:text="${message}">hello world</p>
+        <p th:text="${date.toString()}">toString</p>
+    </div>
+
+    <div>
+        <h2>temporals</h2>
+        <h3>format</h3>
+        <p th:text="${#temporals.format(date, 'yyyy-MM-dd HH:mm:ss')}"></p>
+        <p th:text="|${#temporals.year(date)}年${#temporals.month(date)}月${#temporals.day(date)}日|"></p>
+        <p th:text="${#temporals.format(date, 'a', #locale.US).toLowerCase()}">ampm</p>
+        <h3>convinient</h3>
+        <p th:text="${#temporals.createNow()}">LocalDateTime now</p>
+        <p th:text="${#temporals.createToday()}">LocalDate now</p>
+    </div>
+
+    <div>
+        <h2>numbers</h2>
+        <h3>format</h3>
+        <div class="row">
+            <div class="col-md-3">
+                Integer
+            </div>
+            <div class="col-md-9">
+                <p th:text="${#numbers.formatInteger(123456789.123, 3, 'COMMA')}"></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                Percent
+            </div>
+            <div class="col-md-9">
+                <p th:text="${#numbers.formatPercent(0.75483, 1, 3)}">percent</p>
+            </div>
+        </div>
+        <h3>sequence</h3>
+        <div class="row">
+            <div class="col-md-3">
+                sequence
+            </div>
+            <div class="col-md-9">
+                <th:block th:each="seq, stat : ${#numbers.sequence(1, 10)}">
+                    <p th:if="${stat.index} > 0" th:remove="tag">,</p><p th:text="${seq}" th:remove="tag">0</p>
+                </th:block>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                step
+            </div>
+            <div class="col-md-9">
+                <th:block th:each="seq, stat : ${#numbers.sequence(1, 20, 2)}">
+                    <p th:if="${stat.index} > 0" th:remove="tag">,</p><p th:text="${seq}" th:remove="tag">0</p>
+                </th:block>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <h2>iterate</h2>
+        <h3>table</h3>
+        <div class="table-responsive-md">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>id</th>
+                    <th>name</th>
+                    <th>price</th>
+                    <th>create at</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="item, stat : ${items}" th:object="${item}">
+                    <td th:text="*{id}">id</td>
+                    <td th:text="*{name}">name</td>
+                    <td th:text="*{#numbers.formatCurrency(price)}">price</td>
+                    <td th:text="*{#temporals.format(createAt, 'yyyy/MM/dd HH:mm:ss')}">create at</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div>
+        <h2>message</h2>
+        <h3>simple</h3>
+        <div class="row">
+            <div class="col-md-6">
+                <p>app.welcome</p>
+            </div>
+            <div class="col-md-6">
+                <p th:text="#{app.welcome}">welcome</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                app.am.message
+            </div>
+            <div class="col-md-6">
+                <p th:text="#{app.am.message}">am message</p>
+            </div>
+        </div>
+        <h3>messages utility method</h3>
+        <div class="row">
+            <div class="col-md-6">
+                app.welcome
+            </div>
+            <div class="col-md-6">
+                <p th:text="${#messages.msg('app.welcome')}">am message</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                app.am.message
+            </div>
+            <div class="col-md-6">
+                <p th:text="${#messages.msg('app.am.message')}">am message</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                app.pm.message
+            </div>
+            <div class="col-md-6">
+                <p th:text="${#messages.msg('app.pm.message')}">pm message</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                app.{ampm}.message
+            </div>
+            <div class="col-md-6">
+                <th:block th:with="ampm=${#temporals.format(date, 'a', #locale.US).toLowerCase()}">
+                <p th:text="#{|app.${ampm}.message|}">pm message</p>
+                </th:block>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <h2>basic</h2>
+        <h3>locale</h3>
+        <div class="row">
+            <div class="col-md-12">
+                <p th:text="${#locale.default}">locale</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <p th:text="${#locale.country}">country</p>
+            </div>
+        </div>
+    </div>
+</main><!-- /.container -->
+
+<th:block th:replace="_include :: basic"/>
+</body>
+</html>

@@ -1,0 +1,53 @@
+spring:
+  application:
+    name: demo bootstrapt4 with spring boot 2.0.1
+  output:
+    ansi:
+      enabled: detect
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;
+    username: sa
+    password:
+  jpa:
+    open-in-view: true
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create-drop
+  jackson:
+    serialization:
+      indent-output: true
+      write-dates-as-timestamps: false
+      write-durations-as-timestamps: true
+  thymeleaf:
+    enabled: true
+    encoding: UTF-8
+    enable-spring-el-compiler: true
+    mode: html
+  devtools:
+    restart:
+      enabled: true
+      log-condition-evaluation-delta: true
+    livereload:
+      enabled: false
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+server:
+  servlet:
+    context-path: /app
+  port: 9000
+
+logging:
+  file: demo-bootstrap4-thymeleaf-spring2.log
+  level:
+    root: INFO
+    org.springframework: INFO
+    org.hibernate: INFO
+    org.hibernate.SQL: DEBUG
+    org.thymeleaf: DEBUG
+    org.thymeleaf.TemplateEngine.CONFIG: TRACE
+    org.thymeleaf.TemplateEngine.TIMER: TRACE
+    org.thymeleaf.TemplateEngine.cache.TEMPLATE_CACHE: TRACE
+    com.example.demo: DEBUG

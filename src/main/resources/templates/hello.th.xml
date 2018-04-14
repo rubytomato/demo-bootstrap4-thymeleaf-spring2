@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<thlogic>
+    <attr sel="#itemsTable">
+        <attr sel="/tr[0]" th:each="item : ${items}">
+            <attr sel="td.itemId" th:text="${item.id}"/>
+            <attr sel="td.itemName" th:text="${item.name}"/>
+            <attr sel="td.itemPrice" th:text="${item.price}"/>
+        </attr>
+    </attr>
+</thlogic>

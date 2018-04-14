@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="_header :: header(~{::title})">
+    <title>simple input form</title>
+</head>
+<body class="bg-light">
+
+<th:block th:replace="_nav :: nav"/>
+
+<main role="main" class="container">
+    <div class="py-5 text-center">
+        <h2>simple input form</h2>
+        <p th:if="${validationError}" th:text="${validationError}">validation error</p>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+
+            <form action="#" th:action="@{/simple}" th:object="${simpleForm}" method="post">
+                <!-- text -->
+                <div class="col-md-9 mb-3">
+                    <label class="control-label" for="singleLineText">Single Line Text <span class="text-muted">(2 - 120)</span></label>
+                    <input type="text" class="form-control" th:field="*{singleLineText}" />
+                    <div th:if="${#fields.hasErrors('singleLineText')}" th:errors="*{singleLineText}" class="help-block">error</div>
+                </div>
+                <!-- date type text -->
+                <div class="col-md-9 mb-3">
+                    <label class="control-label" for="textDate">Date (text type) <span class="text-muted">(yyyy/mm/dd)</span></label>
+                    <input type="datetime" class="form-control" th:field="*{textDate}" placeholder="yyyy/mm/dd" />
+                    <div th:if="${#fields.hasErrors('textDate')}" th:errors="*{textDate}" class="help-block">error</div>
+                </div>
+                <!-- date -->
+                <div class="col-md-9 mb-3">
+                    <label class="control-label" for="date">Date <span class="text-muted">(yyyy/mm/dd)</span></label>
+                    <input type="datetime" class="form-control" th:field="*{date}" placeholder="yyyy/mm/dd" />
+                    <div th:if="${#fields.hasErrors('date')}" th:errors="*{date}" class="help-block">error</div>
+                </div>
+                <!-- number type text -->
+                <div class="col-md-9 mb-3">
+                    <label class="control-label" for="textNum">Number (text type) <span class="text-muted">(0 - 999999999)</span></label>
+                    <input type="number" class="form-control" th:field="*{textNum}" />
+                    <div th:if="${#fields.hasErrors('textNum')}" th:errors="*{textNum}" class="help-block">error</div>
+                </div>
+                <!-- number -->
+                <div class="col-md-9 mb-3">
+                    <label class="control-label" for="num">Number <span class="text-muted">(0 - 999999999)</span></label>
+                    <input type="number" class="form-control" th:field="*{num}" />
+                    <div th:if="${#fields.hasErrors('num')}" th:errors="*{num}" class="help-block">error</div>
+                </div>
+                <!-- text area -->
+                <div class="col-md-9 mb-3">
+                    <label class="control-label" for="multiLineText">Text Area <span class="text-muted">(Optional, 10 - 600)</span></label>
+                    <textarea rows="3" cols="80" class="form-control" th:field="*{multiLineText}"></textarea>
+                    <div th:if="${#fields.hasErrors('multiLineText')}" th:errors="*{multiLineText}" class="help-block">error</div>
+                </div>
+                <!-- email -->
+                <div class="col-md-9 mb-3">
+                    <label class="control-label" for="email">Email <span class="text-muted">(Optional)</span></label>
+                    <input type="email" class="form-control" th:field="*{email}" placeholder="you@example.com" />
+                    <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="help-block">error</div>
+                </div>
+                <!-- password -->
+                <div class="col-md-9 mb-3">
+                    <label class="control-label" for="password">Password <span class="text-muted">(6 - 99)</span></label>
+                    <input type="password" class="form-control" th:field="*{password}" />
+                    <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="help-block">error</div>
+                </div>
+
+                <hr class="mb-4">
+
+                <!-- select single -->
+                <div class="col-md-9 mb-3">
+                    <label class="control-label" for="singleSelect">Single Select <span class="text-muted">(Optional)</span></label>
+                    <select class="custom-select d-block w-100" th:field="*{singleSelect}">
+                        <option value="">---</option>
+                        <option th:each="item : ${selectItems}" th:value="${item.value}" th:text="${item.key}">pulldown</option>
+                    </select>
+                    <div th:if="${#fields.hasErrors('singleSelect')}" th:errors="*{singleSelect}" class="help-block">error</div>
+                </div>
+
+                <!-- select multi -->
+                <div class="col-md-9 mb-3">
+                    <label class="control-label" for="multiSelects">Multi Select</label>
+                    <select class="form-control" th:field="*{multiSelects}" multiple="multiple" size="4">
+                        <option th:each="item : ${selectItems}" th:value="${item.value}" th:text="${item.key}">pulldown</option>
+                    </select>
+                    <div th:if="${#fields.hasErrors('multiSelects')}" th:errors="*{multiSelects}" class="help-block">error</div>
+                </div>
+
+                <hr class="mb-4">
+
+                <!-- checkbox single -->
+                <div class="col-md-9 mb-3">
+                    <label class="control-label">Single Checkbox</label>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" th:id="${#ids.seq('singleCheck')}" th:field="*{singleCheck}" value="on" />
+                        <label class="custom-control-label" th:for="${#ids.prev('singleCheck')}">Active</label>
+                    </div>
+                    <div th:if="${#fields.hasErrors('singleCheck')}" th:errors="*{singleCheck}" class="help-block">error</div>
+                </div>
+
+                <!-- checkbox multi -->
+                <div class="col-md-9 mb-3">
+                    <label class="control-label">Multi Checkbox</label>
+                    <div class="custom-control custom-checkbox" th:each="item : ${checkItems}">
+                        <input type="checkbox" class="custom-control-input" th:value="${item.value}" th:field="*{multiChecks}" />
+                        <label class="custom-control-label" th:for="${#ids.prev('multiChecks')}" th:text="${item.key}"></label>
+                    </div>
+                    <div th:if="${#fields.hasErrors('multiChecks')}" th:errors="*{multiChecks}" class="help-block">error</div>
+                </div>
+
+                <hr class="mb-4">
+
+                <!-- radio -->
+                <div class="col-md-9 mb-3">
+                    <label class="control-label">Radio Button</label>
+                    <div class="custom-control custom-radio" th:each="item : ${radioItems}">
+                        <input type="radio" class="custom-control-input" th:value="${item.value}" th:field="*{radio}" />
+                        <label class="custom-control-label" th:for="${#ids.prev('radio')}" th:text="${item.key}"></label>
+                    </div>
+                    <div th:if="${#fields.hasErrors('radio')}" th:errors="*{radio}" class="help-block">error</div>
+                </div>
+                <button class="btn btn-primary btn-lg btn-block" type="submit">confirm</button>
+            </form>
+
+            </div>
+        </div>
+    </div>
+
+    <footer class="text-muted text-center text-small">
+        <p class="mb-1">&nbsp;</p>
+    </footer>
+</main>
+
+<th:block th:replace="_include :: basic"/>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="_header :: header(~{::title})">
+    <title>simple input confirm</title>
+</head>
+<body class="bg-light">
+
+<th:block th:replace="_nav :: nav"/>
+
+<main role="main" class="container">
+    <div class="py-5 text-center">
+        <h2>simple input confirm</h2>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive-md">
+
+                <table class="table table-striped table-bordered" th:object="${simpleForm}">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">field</th>
+                        <th scope="col">value</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th scope="row">Single Line Text</th>
+                        <td th:text="*{singleLineText}"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Date (text type)</th>
+                        <td th:text="*{textDate}"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Date</th>
+                        <td th:text="*{#temporals.format(date, 'yyyy/MM/dd')}"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Number (text type)</th>
+                        <td th:text="*{textNum}"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Number</th>
+                        <td th:text="*{#numbers.formatInteger(num, 0, 'COMMA')}"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Text Area</th>
+                        <td th:utext="*{multiLineText} ?: _">(Not entered)</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Text Area (new line to br)</th>
+                        <td th:utext="*{multiLineTextNl2br} ?: _">(Not entered)</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Email</th>
+                        <td th:text="*{email} ?: _">(Not entered)</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Password</th>
+                        <td th:text="*{password}"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Single Select</th>
+                        <td>
+                            <p class="badge badge-primary" th:text="*{singleSelect}"></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Multi Select</th>
+                        <td>
+                            <p class="badge badge-primary" th:each="c : *{multiSelects}" th:text="${c}"></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Single Checkbox</th>
+                        <td>
+                            <p class="badge badge-primary" th:text="*{singleCheck}"></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Multi Checkbox</th>
+                        <td>
+                            <p class="badge badge-primary" th:each="c : *{multiChecks}" th:text="${c}"></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Radio Button</th>
+                        <td>
+                            <p class="badge badge-primary" th:text="*{radio}"></p>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+    <footer class="text-muted text-center text-small">
+        <p class="mb-1">&nbsp;</p>
+    </footer>
+</main>
+
+<th:block th:replace="_include :: basic"/>
+</body>
+</html>
