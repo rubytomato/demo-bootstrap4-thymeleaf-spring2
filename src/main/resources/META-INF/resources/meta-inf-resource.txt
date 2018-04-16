@@ -1,0 +1,4 @@
+main/meta-info-resource.txt
+abc
+def
+ghi

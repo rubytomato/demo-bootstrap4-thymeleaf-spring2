@@ -1,0 +1,4 @@
+main/resource.txt
+abc
+def
+ghi
