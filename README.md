@@ -1,4 +1,4 @@
-# Thymeleaf 3.0 with Spring Boot 2.0.1 web application
+# Thymeleaf 3.0 with Spring Boot 2.0 web application
 
 ## Build & Run
 
@@ -7,7 +7,7 @@ mvn clean package
 ```
 
 ```text
-java -jar .\target\demo-0.0.1-SNAPSHOT.jar
+java -jar .\target\demo.jar
 ```
 
 ```text

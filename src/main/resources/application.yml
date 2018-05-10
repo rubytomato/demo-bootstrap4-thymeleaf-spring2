@@ -1,6 +1,6 @@
 spring:
   application:
-    name: demo bootstrapt4 with spring boot 2.0.1
+    name: demo bootstrapt4 with spring boot 2.0
   output:
     ansi:
       enabled: detect
@@ -39,15 +39,18 @@ server:
     context-path: /app
   port: 9000
 
+logging.file: demo.log
 logging:
-  file: demo-bootstrap4-thymeleaf-spring2.log
+  file:
+    max-size: 50MB
+    max-history: 10
   level:
-    root: INFO
-    org.springframework: INFO
-    org.hibernate: INFO
-    org.hibernate.SQL: DEBUG
-    org.thymeleaf: DEBUG
-    org.thymeleaf.TemplateEngine.CONFIG: TRACE
-    org.thymeleaf.TemplateEngine.TIMER: TRACE
-    org.thymeleaf.TemplateEngine.cache.TEMPLATE_CACHE: TRACE
-    com.example.demo: DEBUG
+    root: info
+    org.springframework: info
+    org.hibernate: info
+    org.hibernate.SQL: debug
+    org.thymeleaf: debug
+    org.thymeleaf.TemplateEngine.CONFIG: trace
+    org.thymeleaf.TemplateEngine.TIMER: trace
+    org.thymeleaf.TemplateEngine.cache.TEMPLATE_CACHE: trace
+    com.example.demo: debug
