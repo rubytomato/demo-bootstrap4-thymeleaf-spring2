@@ -1,5 +1,11 @@
 # Thymeleaf 3.0 with Spring Boot 2.0 web application
 
+Development environment
+
+* Java 1.8.0
+* Spring Boot 2.0.2
+* Maven 3.5.2
+
 ## Build & Run
 
 ```text
